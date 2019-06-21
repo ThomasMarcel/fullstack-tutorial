@@ -27,7 +27,7 @@ const context = async ({ req }) => {
 
   if (!isEmail.validate(email)) return { user: null };
 
-  const users = await store.users.findOrCreate({ where: { email } });
+  const users = await store.User.findOrCreate({ where: { email } });
   const user = users && users[0] ? users[0] : null;
 
   return { user: { ...user.dataValues } };

@@ -6,14 +6,18 @@ module.exports = {
       dataSources.userAPI.findOrCreateUser(),
   },
   Mutation: {
-    login: async (_, { email }, { dataSources }) => {
-      const user = await dataSources.userAPI.findOrCreateUser({ email });
+    login: async (_, { email, password }, { dataSources }) => {
+      const user = await dataSources.userAPI.findUser({ email, password });
       if (user) return new Buffer(email).toString('base64');
+    },
+    signup: async (_, { email, password }, { dataSources }) => {
+      const user = await dataSources.userAPI.findOrCreateUser({ email, password });
+      if (user) return user;
     },
   },
   User: {
-    role: (user, { type } = { role: 'STANDARD' }) => {
-      return size === 'ADMIN'
+    role: (user, { role } = { role: 'STANDARD' }) => {
+      return role === 'ADMIN'
         ? user.userRoleAdmin
         : user.userRoleStandard;
     },
