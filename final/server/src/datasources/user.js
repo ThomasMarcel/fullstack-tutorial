@@ -11,13 +11,13 @@ class UserAPI extends DataSource {
     this.context = config.context;
   }
 
-  async findUser({ email: emailArg, password: String } = {}) {
+  async findUser({ email: emailArg, password } = {}) {
     const email =
       this.context && this.context.user ? this.context.user.email : emailArg;
     if (!email || !isEmail.validate(email)) return null;
 
-    const users = await this.store.users.find({ where: { email, password } });
-    return users && users[0] ? users[0] : null;
+    const user = await this.store.User.findOne({email, password});
+    return user ? user : null;
   }
 
   async findOrCreateUser({ email: emailArg, password } = {}) {
