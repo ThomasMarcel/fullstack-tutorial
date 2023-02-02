@@ -34,7 +34,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "apollo": "^2.5.3",
+    "apollo": "^2.34.0",
     "artillery": "^1.6.0-26",
     "jest-dom": "^3.0.0",
     "react-testing-library": "^5.4.4"
